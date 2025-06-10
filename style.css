@@ -1,0 +1,113 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: black;
+    transition: all 0.3s ease;
+    text-align: center;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container styles */
+.container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f3f3f3;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* Important for absolute positioning inside */
+}
+
+/* Input, select, and button styling */
+input, select, button {
+    padding: 10px;
+    margin: 10px;
+    width: 80%;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Standard buttons */
+button {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Dark mode styles */
+body.dark {
+    background-color: #121212;
+    color: #f0f0f0;
+}
+
+body.dark .container {
+    background-color: #1e1e1e;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+body.dark input,
+body.dark select {
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+}
+
+body.dark button {
+    background-color: #bb86fc;
+}
+
+body.dark button:hover {
+    background-color: #9b59b6;
+}
+
+/* Dark mode toggle button (top-right corner circle) */
+#toggle-dark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+
+#toggle-dark:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+body.dark #toggle-dark:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+@media (max-width: 480px) {
+    #toggle-dark {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+    }
+}

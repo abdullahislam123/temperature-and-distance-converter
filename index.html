@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <button id="toggle-dark" onclick="toggleDarkMode()">
+            <span id="icon">🌙</span>
+        </button>
+        <div id="datetime" style="margin-top: 10px; font-size: 18px;"></div>
+        <h1>Distance & Temperature converter</h1>
+        <input type="number" id="input-value" placeholder="Enter Distance">
+        <select id="conversion-type">
+            <option value="kmToMeter">Kilometers to Meters</option>
+            <option value="meterToKm">Meters to Kilometers</option>
+            <option value="inchToCm">Inches to Centimeters</option>
+            <option value="cmToInch">Centimeters to Inches</option>
+            <option value="cToF">Celsius to Fahrenheit</option>
+            <option value="fToC">Fahrenheit to Celsius</option>
+        </select>
+        <button onclick="convert()">Convert</button>
+        <p id="result"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
