@@ -1,8 +1,39 @@
-const password = prompt("Enter password:");
-if (password !== "1234") {
-  alert("Incorrect password!");
-  window.location.reload();
-}
+    window.onload = () => {
+
+    // 🔐 NUMERIC-ONLY PASSWORD CHECK
+    let userInput;
+    do {
+        userInput = prompt("🔐 Enter numeric password to access the site:");
+        if (userInput === null) {
+            alert("Access denied!");
+            location.reload();
+            return;
+        }
+    } while (!/^\d+$/.test(userInput)); // only digits allowed
+
+    const correctPassword = "1234";
+    if (userInput !== correctPassword) {
+        alert("Incorrect password!");
+        location.reload();
+        return;
+    }
+
+    // 🔄 Your existing code continues below
+    const darkMode = localStorage.getItem("darkMode");
+    if (darkMode === "enabled") {
+        document.body.classList.add("dark");
+        document.getElementById("icon").textContent = "☀️";
+    }
+
+    document.getElementById("input-value").value = "";
+    document.getElementById("conversion-type").selectedIndex = 0;
+
+    const history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
+    if (history.length > 0) {
+        document.getElementById("result").innerText = "Conversion History:\n" + history.reverse().join("\n");
+    }
+    updateDateTime();
+};
 
 function convert(){
     let input = document.getElementById("input-value").value;
