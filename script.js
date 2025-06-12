@@ -8,6 +8,9 @@ function convert(){
         document.getElementById("result").innerText = "Please enter a valid number";
         return;
     }
+    // Store in localStorage
+    localStorage.setItem("lastInput", input);
+    localStorage.setItem("lastType", type);
     switch(type){
         case "kmToMeter":
             result = input * 1000;
@@ -53,6 +56,9 @@ window.onload = () => {
         document.body.classList.add("dark");
         document.getElementById("icon").textContent = "☀️";
     }
+    // Restore previous input and conversion type
+    document.getElementById("input-value").value = localStorage.getItem("lastInput") || "";
+    document.getElementById("conversion-type").value = localStorage.getItem("lastType") || "";
 }
 
 function updateDateTime() {
