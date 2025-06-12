@@ -1,5 +1,4 @@
-    window.onload = () => {
-
+window.onload = () => {
     // 🔐 NUMERIC-ONLY PASSWORD CHECK
     let userInput;
     do {
@@ -9,7 +8,7 @@
             location.reload();
             return;
         }
-    } while (!/^\d+$/.test(userInput)); // only digits allowed
+    } while (!/^\d+$/.test(userInput)); // Only digits allowed
 
     const correctPassword = "1234";
     if (userInput !== correctPassword) {
@@ -18,37 +17,47 @@
         return;
     }
 
-    // 🔄 Your existing code continues below
+    // 🌙 Dark Mode Setup
     const darkMode = localStorage.getItem("darkMode");
     if (darkMode === "enabled") {
         document.body.classList.add("dark");
         document.getElementById("icon").textContent = "☀️";
+    } else {
+        document.getElementById("icon").textContent = "🌙";
     }
 
+    // Clear input fields on load
     document.getElementById("input-value").value = "";
     document.getElementById("conversion-type").selectedIndex = 0;
 
+    // Show conversion history
     const history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
     if (history.length > 0) {
         document.getElementById("result").innerText = "Conversion History:\n" + history.reverse().join("\n");
     }
+
     updateDateTime();
+    setInterval(updateDateTime, 1000);
 };
 
-function convert(){
+function convert() {
     let input = document.getElementById("input-value").value;
     let type = document.getElementById("conversion-type").value;
     let result = 0;
     let unit = "";
+
     input = parseFloat(input);
-    if(isNaN(input)){
+    if (isNaN(input)) {
         document.getElementById("result").innerText = "Please enter a valid number";
         return;
     }
-    // Store in localStorage
+
+    // Store last input
     localStorage.setItem("lastInput", input);
     localStorage.setItem("lastType", type);
-    switch(type){
+
+    // Conversion logic
+    switch (type) {
         case "kmToMeter":
             result = input * 1000;
             unit = "meters";
@@ -63,53 +72,35 @@ function convert(){
             break;
         case "cmToInch":
             result = input / 2.54;
-            unit = "inche";
+            unit = "inch";
             break;
         case "cToF":
-            result = (input * 9/5) + 32;
-            unit = "°F"
+            result = (input * 9 / 5) + 32;
+            unit = "°F";
             break;
         case "fToC":
-            result = (input - 32) * 5/9;
-            unit = "°C"
+            result = (input - 32) * 5 / 9;
+            unit = "°C";
             break;
     }
+
     result = result.toFixed(2);
 
+    // Save history
     let history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
     history.push(`${input} → ${result} ${unit}`);
     localStorage.setItem("conversionHistory", JSON.stringify(history));
 
-    document.getElementById("result").innerText = `Converted value: ${result}${unit}`;
+    document.getElementById("result").innerText = `Converted value: ${result} ${unit}`;
 }
+
 function toggleDarkMode() {
     document.body.classList.toggle('dark');
     const icon = document.getElementById("icon");
     const isDark = document.body.classList.contains("dark");
     icon.textContent = isDark ? "☀️" : "🌙";
     localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
-
-    // Toast as before...
 }
-
-window.onload = () => {
-    const darkMode = localStorage.getItem("darkMode");
-    if (darkMode === "enabled") {
-        document.body.classList.add("dark");
-        document.getElementById("icon").textContent = "☀️";
-    }
-
-    document.getElementById("input-value").value = "";
-    document.getElementById("conversion-type").selectedIndex = 0;
-
-    const history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
-    if (history.length > 0) {
-        document.getElementById("result").innerText = "Conversion History:\n" + history.reverse().join("\n");
-    }
-
-    updateDateTime();
-};
-
 
 function updateDateTime() {
     const now = new Date();
@@ -128,7 +119,3 @@ function updateDateTime() {
 
     document.getElementById("datetime").textContent = `${date} — ${time}`;
 }
-
-// Call once immediately and then every 1 sec
-updateDateTime();
-setInterval(updateDateTime, 1000);
