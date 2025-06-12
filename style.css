@@ -104,6 +104,9 @@ body.dark button:hover {
 body.dark #toggle-dark:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
+h1{
+    color: blue;
+}
 @media (max-width: 480px) {
     #toggle-dark {
         width: 32px;
