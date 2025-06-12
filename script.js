@@ -82,6 +82,32 @@ function convert() {
             result = (input - 32) * 5 / 9;
             unit = "°C";
             break;
+        case "mAtoA":
+            result = input / 1000;
+            unit = "A";
+            break;
+        case "AtoMA":
+            result = input * 1000;
+            unit = "mA";
+            break;
+
+        case "mmolToMol":
+            result = input / 1000;
+            unit = "mol";
+            break;
+        case "molToMmol":
+            result = input * 1000;
+            unit = "mmol";
+            break;
+
+        case "mcdToCd":
+            result = input / 1000;
+            unit = "cd";
+            break;
+        case "cdToMcd":
+            result = input * 1000;
+            unit = "mcd";
+            break;
     }
 
     result = result.toFixed(2);
