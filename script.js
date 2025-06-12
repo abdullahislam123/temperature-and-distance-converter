@@ -111,10 +111,19 @@ function convert() {
     }
 
     result = result.toFixed(2);
+    // Get current time
+    const now = new Date();
+    const formattedDate = now.toLocaleDateString('en-GB', {
+        year: 'numeric', month: 'short', day: 'numeric'
+    });
+    const formattedTime = now.toLocaleTimeString('en-US', {
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+    });
 
-    // Save history
+    const fullTime = `${formattedDate}, ${formattedTime}`;
+
     let history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
-    history.push(`${input} → ${result} ${unit}`);
+    history.push(`${input} → ${result} ${unit} (${fullTime})`);
     localStorage.setItem("conversionHistory", JSON.stringify(history));
 
     document.getElementById("result").innerText = `Converted value: ${result} ${unit}`;
