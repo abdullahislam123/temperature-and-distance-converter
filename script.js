@@ -10,7 +10,7 @@ window.onload = () => {
         }
     } while (!/^\d+$/.test(userInput)); // Only digits allowed
 
-    const correctPassword = "1234";
+    const correctPassword = "12345";
     if (userInput !== correctPassword) {
         alert("Incorrect password!");
         location.reload();
