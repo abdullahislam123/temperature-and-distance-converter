@@ -1,3 +1,21 @@
+// 🔐 Basic User Authentication
+window.addEventListener("DOMContentLoaded", () => {
+    const correctPassword = "web123"; // 🔒 Change this password
+    const access = localStorage.getItem("accessGranted");
+
+    if (access !== "true") {
+        const userInput = prompt("Enter password to access the site:");
+        if (userInput === correctPassword) {
+            localStorage.setItem("accessGranted", "true");
+            alert("Access granted!");
+        } else {
+            alert("Incorrect password. Try again.");
+            location.reload();
+        }
+    }
+});
+
+
 function convert(){
     let input = document.getElementById("input-value").value;
     let type = document.getElementById("conversion-type").value;
@@ -61,17 +79,18 @@ window.onload = () => {
         document.body.classList.add("dark");
         document.getElementById("icon").textContent = "☀️";
     }
-    
-    // Don’t restore input and selection
-        document.getElementById("input-value").value = "";
-        document.getElementById("conversion-type").selectedIndex = 0;
+
+    document.getElementById("input-value").value = "";
+    document.getElementById("conversion-type").selectedIndex = 0;
 
     const history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
     if (history.length > 0) {
         document.getElementById("result").innerText = "Conversion History:\n" + history.reverse().join("\n");
     }
 
-}
+    updateDateTime();
+};
+
 
 function updateDateTime() {
     const now = new Date();
