@@ -127,9 +127,6 @@ function convert() {
     localStorage.setItem("conversionHistory", JSON.stringify(history));
 
     document.getElementById("result").innerText = `Converted value: ${result} ${unit}`;
-    const updatedHistory = JSON.parse(localStorage.getItem("conversionHistory")) || [];
-    document.getElementById("result").innerText += "\n\nConversion History:\n" + updatedHistory.slice().reverse().join("\n");
-
 }
 
 function toggleDarkMode() {
@@ -157,4 +154,3 @@ function updateDateTime() {
 
     document.getElementById("datetime").textContent = `${date} — ${time}`;
 }
-
