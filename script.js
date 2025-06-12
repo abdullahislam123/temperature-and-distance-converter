@@ -57,9 +57,11 @@ window.onload = () => {
         document.body.classList.add("dark");
         document.getElementById("icon").textContent = "☀️";
     }
-    // Restore previous input and conversion type
-    document.getElementById("input-value").value = localStorage.getItem("lastInput") || "";
-    document.getElementById("conversion-type").value = localStorage.getItem("lastType") || "";
+    
+    // Don’t restore input and selection
+        document.getElementById("input-value").value = "";
+        document.getElementById("conversion-type").selectedIndex = 0;
+
     // Restore result
     const lastResult = localStorage.getItem("lastResult");
     if (lastResult) {
