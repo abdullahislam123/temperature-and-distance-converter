@@ -1,6 +1,6 @@
 // 🔐 Basic User Authentication
 window.addEventListener("DOMContentLoaded", () => {
-    const correctPassword = "web123"; // 🔒 Change this password
+    const correctPassword = "secret"; // 🔒 Change this password
     const access = localStorage.getItem("accessGranted");
 
     if (access !== "true") {
