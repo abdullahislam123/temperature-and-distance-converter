@@ -2,6 +2,7 @@ function convert(){
     let input = document.getElementById("input-value").value;
     let type = document.getElementById("conversion-type").value;
     let result = 0;
+    let unit = "";
     input = parseFloat(input);
     if(isNaN(input)){
         document.getElementById("result").innerText = "Please enter a valid number";
@@ -10,24 +11,31 @@ function convert(){
     switch(type){
         case "kmToMeter":
             result = input * 1000;
+            unit = "meters";
             break;
         case "meterToKm":
             result = input / 1000;
+            unit = "km";
             break;
         case "inchToCm":
             result = input * 2.54;
+            unit = "cm";
             break;
         case "cmToInch":
             result = input / 2.54;
+            unit = "inche";
             break;
         case "cToF":
-        result = (input * 9/5) + 32;
-        break;
+            result = (input * 9/5) + 32;
+            unit = "°F"
+            break;
         case "fToC":
-        result = (input - 32) * 5/9;
-        break;
+            result = (input - 32) * 5/9;
+            unit = "°C"
+            break;
     }
-    document.getElementById("result").innerText = `Converted value: ${result}`;
+    result = result.toFixed(2);
+    document.getElementById("result").innerText = `Converted value: ${result}${unit}`;
 }
 function toggleDarkMode() {
     document.body.classList.toggle('dark');
