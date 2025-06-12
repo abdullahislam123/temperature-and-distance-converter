@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Unit Converter</title>
 </head>
 <body>
     <div class="container">
+        <div id="datetime"></div>
+
         <button id="toggle-dark" onclick="toggleDarkMode()">
             <span id="icon">🌙</span>
         </button>
-        <div id="datetime" style="margin-top: 10px; font-size: 18px;"></div>
-        <h1>Distance & Temperature converter</h1>
-        <input type="number" id="input-value" placeholder="Enter Distance">
-        <select id="conversion-type">
+
+        <h1>Unit Converter</h1>
+
+        <input type="number" id="input-value" placeholder="Enter value" oninput="convert()">
+
+        <select id="conversion-type" onchange="convert()">
             <option value="kmToMeter">Kilometers to Meters</option>
             <option value="meterToKm">Meters to Kilometers</option>
             <option value="inchToCm">Inches to Centimeters</option>
@@ -27,11 +31,16 @@
             <option value="molToMmol">Mole to Millimole</option>
             <option value="mcdToCd">Millicandela to Candela</option>
             <option value="cdToMcd">Candela to Millicandela</option>
-
         </select>
-        <button onclick="convert()">Convert</button>
-        <p id="result"></p>
+
+        <div id="result-box">
+            <p id="result"></p>
+        </div>
+
+        <button onclick="toggleHistory()" id="toggle-history">Show Conversion History</button>
+        <div id="history-box" style="display: none;"></div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

@@ -17,67 +17,79 @@ body {
     height: 100vh;
 }
 
-/* Container styles */
 .container {
-    max-width: 500px;
+    max-width: 600px;
+    width: 100%;
     margin: auto;
     padding: 20px;
     border-radius: 10px;
     background-color: #f3f3f3;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    position: relative; /* Important for absolute positioning inside */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-/* Input, select, and button styling */
-input, select, button {
+input, select {
     padding: 10px;
-    margin: 10px;
-    width: 80%;
+    margin: 10px 0;
+    width: 100%;
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ccc;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Standard buttons */
 button {
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #6c63ff;
     color: white;
     border: none;
+    padding: 10px;
+    margin-top: 15px;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #5a54d1;
 }
 
-/* Dark mode styles */
-body.dark {
-    background-color: #121212;
-    color: #f0f0f0;
+#result-box {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #eaeaea;
+    border-radius: 8px;
+    font-size: 18px;
+    color: #333;
 }
 
-body.dark .container {
-    background-color: #1e1e1e;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+#history-box {
+    margin-top: 20px;
+    text-align: left;
+    background-color: #eaeaea;
+    padding: 15px;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
-body.dark input,
-body.dark select {
-    background-color: #333;
-    color: white;
-    border: 1px solid #555;
+#history-box ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin: 0;
 }
 
-body.dark button {
-    background-color: #bb86fc;
+#history-box li {
+    margin-bottom: 5px;
+    line-height: 1.4;
 }
 
-body.dark button:hover {
-    background-color: #9b59b6;
+h1 {
+    color: #c872c5;
+    margin-bottom: 20px;
 }
 
-/* Dark mode toggle button (top-right corner circle) */
 #toggle-dark {
     position: absolute;
     top: 10px;
@@ -101,12 +113,41 @@ body.dark button:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
+body.dark {
+    background-color: #121212;
+    color: #f0f0f0;
+}
+
+body.dark .container {
+    background-color: #1e1e1e;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+body.dark input,
+body.dark select {
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+}
+
+body.dark button {
+    background-color: #bb86fc;
+}
+
+body.dark button:hover {
+    background-color: #9b59b6;
+}
+
 body.dark #toggle-dark:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
-h1{
-    color: #c872c5;
+
+body.dark #result-box,
+body.dark #history-box {
+    background-color: #2c2c2c;
+    color: #f0f0f0;
 }
+
 @media (max-width: 480px) {
     #toggle-dark {
         width: 32px;
