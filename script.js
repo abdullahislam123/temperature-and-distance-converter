@@ -38,6 +38,7 @@ function convert(){
             break;
     }
     result = result.toFixed(2);
+    localStorage.setItem("lastResult", result);
     document.getElementById("result").innerText = `Converted value: ${result}${unit}`;
 }
 function toggleDarkMode() {
