@@ -38,7 +38,11 @@ function convert(){
             break;
     }
     result = result.toFixed(2);
-    localStorage.setItem("lastResult", result);
+
+    let history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
+    history.push(`${input} → ${result} ${unit}`);
+    localStorage.setItem("conversionHistory", JSON.stringify(history));
+
     document.getElementById("result").innerText = `Converted value: ${result}${unit}`;
 }
 function toggleDarkMode() {
@@ -62,11 +66,11 @@ window.onload = () => {
         document.getElementById("input-value").value = "";
         document.getElementById("conversion-type").selectedIndex = 0;
 
-    // Restore result
-    const lastResult = localStorage.getItem("lastResult");
-    if (lastResult) {
-        document.getElementById("result").innerText = `Converted value: ${lastResult}`;
+    const history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
+    if (history.length > 0) {
+        document.getElementById("result").innerText = "Conversion History:\n" + history.reverse().join("\n");
     }
+
 }
 
 function updateDateTime() {
