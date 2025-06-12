@@ -60,6 +60,11 @@ window.onload = () => {
     // Restore previous input and conversion type
     document.getElementById("input-value").value = localStorage.getItem("lastInput") || "";
     document.getElementById("conversion-type").value = localStorage.getItem("lastType") || "";
+    // Restore result
+    const lastResult = localStorage.getItem("lastResult");
+    if (lastResult) {
+        document.getElementById("result").innerText = `Converted value: ${lastResult}`;
+    }
 }
 
 function updateDateTime() {
