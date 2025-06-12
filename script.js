@@ -159,7 +159,7 @@ function updateDateTime() {
 }
 
 function saveToGoogleSheet(input, result, unit) {
-    fetch("https://script.google.com/macros/s/AKfycbwROBLxP1x_tIbZ4mWnf5YsXi4s2ojXURQNa3mkNyJGfSwuIV2rwJ9WaXdjogA1P2Qm/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbxPaVUahoeCUOdQf-XYr6-NazhGzxME2cq288lxCq8/dev", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
