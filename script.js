@@ -1,20 +1,8 @@
-// 🔐 Basic User Authentication
-window.addEventListener("DOMContentLoaded", () => {
-    const correctPassword = "secret"; // 🔒 Change this password
-    const access = localStorage.getItem("accessGranted");
-
-    if (access !== "true") {
-        const userInput = prompt("Enter password to access the site:");
-        if (userInput === correctPassword) {
-            localStorage.setItem("accessGranted", "true");
-            alert("Access granted!");
-        } else {
-            alert("Incorrect password. Try again.");
-            location.reload();
-        }
-    }
-});
-
+const password = prompt("Enter password:");
+if (password !== "1234") {
+  alert("Incorrect password!");
+  window.location.reload();
+}
 
 function convert(){
     let input = document.getElementById("input-value").value;
