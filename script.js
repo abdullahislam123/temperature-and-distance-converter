@@ -90,7 +90,6 @@ function convert() {
             result = input * 1000;
             unit = "mA";
             break;
-
         case "mmolToMol":
             result = input / 1000;
             unit = "mol";
@@ -99,7 +98,6 @@ function convert() {
             result = input * 1000;
             unit = "mmol";
             break;
-
         case "mcdToCd":
             result = input / 1000;
             unit = "cd";
@@ -111,7 +109,7 @@ function convert() {
     }
 
     result = result.toFixed(2);
-    // Get current time
+
     const now = new Date();
     const formattedDate = now.toLocaleDateString('en-GB', {
         year: 'numeric', month: 'short', day: 'numeric'
@@ -119,17 +117,19 @@ function convert() {
     const formattedTime = now.toLocaleTimeString('en-US', {
         hour: '2-digit', minute: '2-digit', second: '2-digit'
     });
-
     const fullTime = `${formattedDate}, ${formattedTime}`;
 
     let history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
-    history.push(`${input} → ${result} ${unit} (${fullTime})`);
+    const entry = `${input} → ${result} ${unit} (${fullTime})`;
+    history.push(entry);
     localStorage.setItem("conversionHistory", JSON.stringify(history));
 
-    document.getElementById("result").innerText = `Converted value: ${result} ${unit}`;
-    const updatedHistory = JSON.parse(localStorage.getItem("conversionHistory")) || [];
-    document.getElementById("result").innerText += "\n\nConversion History:\n" + updatedHistory.slice().reverse().join("\n");
+    // Save to Google Sheet
+    saveToGoogleSheet(input, result, unit);
 
+    document.getElementById("result").innerText =
+        `Converted value: ${result} ${unit}\n\nConversion History:\n` +
+        history.slice().reverse().join("\n");
 }
 
 function toggleDarkMode() {
@@ -156,4 +156,22 @@ function updateDateTime() {
     });
 
     document.getElementById("datetime").textContent = `${date} — ${time}`;
+}
+
+function saveToGoogleSheet(input, result, unit) {
+    fetch("https://script.google.com/macros/s/AKfycbwROBLxP1x_tIbZ4mWnf5YsXi4s2ojXURQNa3mkNyJGfSwuIV2rwJ9WaXdjogA1P2Qm/exec", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            input: input,
+            result: result,
+            unit: unit,
+            device: navigator.userAgent
+        })
+    })
+    .then(res => res.text())
+    .then(data => console.log("✅ Saved to Google Sheets:", data))
+    .catch(err => console.error("❌ Failed to save:", err));
 }
