@@ -1,21 +1,4 @@
 window.onload = () => {
-    let userInput;
-    do {
-        userInput = prompt("🔐 Enter numeric password to access the site:");
-        if (userInput === null) {
-            alert("Access denied!");
-            location.reload();
-            return;
-        }
-    } while (!/^[0-9]+$/.test(userInput));
-
-    const correctPassword = "12345";
-    if (userInput !== correctPassword) {
-        alert("Incorrect password!");
-        location.reload();
-        return;
-    }
-
     const darkMode = localStorage.getItem("darkMode");
     if (darkMode === "enabled") {
         document.body.classList.add("dark");
@@ -24,6 +7,7 @@ window.onload = () => {
         document.getElementById("icon").textContent = "🌙";
     }
 
+    // Reset input and select to default
     document.getElementById("input-value").value = "";
     document.getElementById("conversion-type").selectedIndex = 0;
 
@@ -32,17 +16,18 @@ window.onload = () => {
 };
 
 function convert() {
-    let input = document.getElementById("input-value").value;
-    let type = document.getElementById("conversion-type").value;
-    let output = document.getElementById("result");
-    let result = 0;
-    let unit = "";
+    const inputElement = document.getElementById("input-value");
+    const type = document.getElementById("conversion-type").value;
+    const output = document.getElementById("result");
 
-    input = parseFloat(input);
+    let input = parseFloat(inputElement.value);
     if (isNaN(input)) {
-        output.innerText = "Please enter a valid number";
+        output.innerHTML = `<span style="color: red;">Please enter a valid number</span>`;
         return;
     }
+
+    let result = 0;
+    let unit = "";
 
     switch (type) {
         case "kmToMeter": result = input * 1000; unit = "meters"; break;
@@ -57,24 +42,28 @@ function convert() {
         case "molToMmol": result = input * 1000; unit = "mmol"; break;
         case "mcdToCd": result = input / 1000; unit = "cd"; break;
         case "cdToMcd": result = input * 1000; unit = "mcd"; break;
+        default: output.innerHTML = "Unknown conversion type"; return;
     }
 
     result = result.toFixed(2);
+
     const now = new Date();
-    const formattedDate = now.toLocaleDateString('en-GB', {
-        year: 'numeric', month: 'short', day: 'numeric'
-    });
-    const formattedTime = now.toLocaleTimeString('en-US', {
-        hour: '2-digit', minute: '2-digit', second: '2-digit'
-    });
+    const formattedDate = now.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+    const formattedTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     const fullTime = `${formattedDate}, ${formattedTime}`;
 
-    let history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
+    // Save to history
     const historyItem = `${input} → ${result} ${unit} (${fullTime})`;
+    let history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
     history.push(historyItem);
     localStorage.setItem("conversionHistory", JSON.stringify(history));
 
+    // Show result with fade-in
     output.innerHTML = `<strong>Converted:</strong> ${input} → <strong>${result} ${unit}</strong>`;
+    output.parentElement.style.opacity = 0;
+    setTimeout(() => {
+        output.parentElement.style.opacity = 1;
+    }, 100);
 }
 
 function toggleDarkMode() {
@@ -100,14 +89,24 @@ function toggleHistory() {
     const box = document.getElementById("history-box");
     const history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
     box.innerHTML = "";
+
     if (box.style.display === "none" || box.style.display === "") {
+        const ul = document.createElement("ul");
         history.reverse().forEach(entry => {
             const li = document.createElement("li");
             li.textContent = entry;
-            box.appendChild(li);
+            ul.appendChild(li);
         });
+        box.appendChild(ul);
         box.style.display = "block";
+        box.style.opacity = 0;
+        setTimeout(() => {
+            box.style.opacity = 1;
+        }, 100);
     } else {
-        box.style.display = "none";
+        box.style.opacity = 0;
+        setTimeout(() => {
+            box.style.display = "none";
+        }, 300);
     }
 }
