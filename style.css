@@ -5,8 +5,10 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: white;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fdfcfb, #e2d1c3);
+    background-size: 200% 200%;
+    animation: gradientShift 10s ease infinite;
     color: black;
     transition: all 0.3s ease;
     text-align: center;
@@ -18,14 +20,20 @@ body {
     overflow-x: hidden;
 }
 
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .container {
     max-width: 600px;
     width: 100%;
     margin: auto;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #f3f3f3;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    border-radius: 15px;
+    background-color: #ffffffd6;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     position: relative;
     animation: fadeSlideUp 0.8s ease;
 }
@@ -42,18 +50,19 @@ body {
 }
 
 input, select {
-    padding: 10px;
+    padding: 12px;
     margin: 10px 0;
     width: 100%;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 8px;
     border: 1px solid #ccc;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s;
+    transition: all 0.3s ease;
 }
 
 input:focus, select:focus {
     outline: none;
     border-color: #6c63ff;
+    box-shadow: 0 0 5px rgba(108, 99, 255, 0.3);
     transform: scale(1.02);
 }
 
@@ -62,16 +71,16 @@ button {
     background-color: #6c63ff;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 12px;
     margin-top: 15px;
     width: 100%;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: background-color 0.3s ease, transform 0.2s;
 }
 
 button:hover {
-    background-color: #5a54d1;
+    background-color: #574fd6;
     transform: scale(1.03);
 }
 
@@ -151,13 +160,13 @@ h1 {
 
 /* DARK MODE */
 body.dark {
-    background-color: #121212;
+    background: linear-gradient(to bottom, #121212, #1c1c1c);
     color: #f0f0f0;
 }
 
 body.dark .container {
-    background-color: #1e1e1e;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    background-color: #1e1e1ed2;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
 }
 
 body.dark input,
@@ -186,6 +195,14 @@ body.dark #history-box {
 }
 
 @media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        padding: 20px 15px;
+    }
+
     #toggle-dark {
         width: 32px;
         height: 32px;
