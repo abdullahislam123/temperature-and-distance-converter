@@ -16,9 +16,11 @@
 
         <h1>Unit Converter</h1>
 
-        <input type="number" id="input-value" placeholder="Enter value" oninput="convert()">
+        <!-- User Input -->
+        <input type="number" id="input-value" placeholder="Enter value">
 
-        <select id="conversion-type" onchange="convert()">
+        <!-- Conversion Options -->
+        <select id="conversion-type">
             <option value="kmToMeter">Kilometers to Meters</option>
             <option value="meterToKm">Meters to Kilometers</option>
             <option value="inchToCm">Inches to Centimeters</option>
@@ -33,10 +35,15 @@
             <option value="cdToMcd">Candela to Millicandela</option>
         </select>
 
+        <!-- ✅ Convert Button -->
+        <button onclick="convert()">Convert</button>
+
+        <!-- Result Display -->
         <div id="result-box">
             <p id="result"></p>
         </div>
 
+        <!-- Toggle History -->
         <button onclick="toggleHistory()" id="toggle-history">Show Conversion History</button>
         <div id="history-box" style="display: none;"></div>
     </div>
