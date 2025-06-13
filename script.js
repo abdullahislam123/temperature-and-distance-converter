@@ -133,3 +133,20 @@ function toggleHistory() {
         }, 300);
     }
 }
+function clearHistory() {
+    localStorage.removeItem("conversionHistory");
+
+    const box = document.getElementById("history-box");
+    if (box) {
+        box.innerHTML = "<p style='color: gray;'>History cleared.</p>";
+    }
+
+    // Optionally hide the history box
+    setTimeout(() => {
+        box.style.opacity = 0;
+        setTimeout(() => {
+            box.style.display = "none";
+        }, 300);
+    }, 1000);
+}
+
