@@ -27,22 +27,42 @@ function convert() {
     }
 
     let result = 0;
-    let unit = "";
+
+    // Define units for each conversion type
+    const unitMap = {
+        kmToMeter: { from: "km", to: "meters" },
+        meterToKm: { from: "meters", to: "km" },
+        inchToCm: { from: "inch", to: "cm" },
+        cmToInch: { from: "cm", to: "inch" },
+        cToF: { from: "°C", to: "°F" },
+        fToC: { from: "°F", to: "°C" },
+        mAtoA: { from: "mA", to: "A" },
+        AtoMA: { from: "A", to: "mA" },
+        mmolToMol: { from: "mmol", to: "mol" },
+        molToMmol: { from: "mol", to: "mmol" },
+        mcdToCd: { from: "mcd", to: "cd" },
+        cdToMcd: { from: "cd", to: "mcd" }
+    };
+
+    const units = unitMap[type];
+    if (!units) {
+        output.innerHTML = "Unknown conversion type";
+        return;
+    }
 
     switch (type) {
-        case "kmToMeter": result = input * 1000; unit = "meters"; break;
-        case "meterToKm": result = input / 1000; unit = "km"; break;
-        case "inchToCm": result = input * 2.54; unit = "cm"; break;
-        case "cmToInch": result = input / 2.54; unit = "inch"; break;
-        case "cToF": result = (input * 9 / 5) + 32; unit = "°F"; break;
-        case "fToC": result = (input - 32) * 5 / 9; unit = "°C"; break;
-        case "mAtoA": result = input / 1000; unit = "A"; break;
-        case "AtoMA": result = input * 1000; unit = "mA"; break;
-        case "mmolToMol": result = input / 1000; unit = "mol"; break;
-        case "molToMmol": result = input * 1000; unit = "mmol"; break;
-        case "mcdToCd": result = input / 1000; unit = "cd"; break;
-        case "cdToMcd": result = input * 1000; unit = "mcd"; break;
-        default: output.innerHTML = "Unknown conversion type"; return;
+        case "kmToMeter": result = input * 1000; break;
+        case "meterToKm": result = input / 1000; break;
+        case "inchToCm": result = input * 2.54; break;
+        case "cmToInch": result = input / 2.54; break;
+        case "cToF": result = (input * 9 / 5) + 32; break;
+        case "fToC": result = (input - 32) * 5 / 9; break;
+        case "mAtoA": result = input / 1000; break;
+        case "AtoMA": result = input * 1000; break;
+        case "mmolToMol": result = input / 1000; break;
+        case "molToMmol": result = input * 1000; break;
+        case "mcdToCd": result = input / 1000; break;
+        case "cdToMcd": result = input * 1000; break;
     }
 
     result = result.toFixed(2);
@@ -52,19 +72,22 @@ function convert() {
     const formattedTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     const fullTime = `${formattedDate}, ${formattedTime}`;
 
-    // Save to history
-    const historyItem = `${input} → ${result} ${unit} (${fullTime})`;
+    // Update result with input unit
+    output.innerHTML = `<strong>Converted:</strong> ${input} ${units.from} → <strong>${result} ${units.to}</strong>`;
+
+    // Update history
+    const historyItem = `${input} ${units.from} → ${result} ${units.to} (${fullTime})`;
     let history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
     history.push(historyItem);
     localStorage.setItem("conversionHistory", JSON.stringify(history));
 
-    // Show result with fade-in
-    output.innerHTML = `<strong>Converted:</strong> ${input} → <strong>${result} ${unit}</strong>`;
+    // Fade-in result box
     output.parentElement.style.opacity = 0;
     setTimeout(() => {
         output.parentElement.style.opacity = 1;
     }, 100);
 }
+
 
 function toggleDarkMode() {
     document.body.classList.toggle('dark');
